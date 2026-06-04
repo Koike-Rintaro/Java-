@@ -1,5 +1,6 @@
 package Ex0370;
 
+import java.text.Normalizer;
 import java.util.Scanner;
 
 public class Ex0370 {
@@ -13,17 +14,19 @@ public class Ex0370 {
 			
 			int kaisuu = 1;
 			
-			
-			
-			
 			while(!isCollect) {
-				
-				
 				
 				System.out.print("(" + kaisuu + "回目)" +"予測数字を入力してください：");
 				
-				String num = scn.next();
+				String Fnum = scn.next();
 				
+				String num = Normalizer.normalize(Fnum, Normalizer.Form.NFKC);
+				
+				
+				String[] NUM = num.split("");
+				
+				String[] col = args[0].split("");
+
 				//999ギブアップ判定
 				if(num.equals("999")) {
 					System.out.println("正解は" + args[0] + "でした。");
@@ -31,19 +34,12 @@ public class Ex0370 {
 				}
 				
 				
-				if(!(num.length() == 4)) {
-					System.out.println("入力値が4桁ではありません。" + "\r\n");
+				//4桁、負の数字、小数部ありの数値の場合、エラーになる
+				if(!(num.length() == 4) || (NUM[0].equals("-") || col[0].equals("-")  || num.matches("^[-+]?\\d*\\.\\d+$"))
+						) {
+					System.out.println("入力値が4桁ではないか、正の整数ではありません。" + "\r\n");
 					continue;
 				}
-				
-				
-				
-				String[] NUM = num.split("");
-				
-				String[] col = args[0].split("");
-				
-				
-				
 				
 				int hit = 0;
 				int brow = 0;
